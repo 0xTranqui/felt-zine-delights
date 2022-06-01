@@ -1,0 +1,26 @@
+{
+  "name": "felt-zine-delights",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "0.2.1",
+    "ethers": "5.6.8",
+    "next": "12.1.6",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "wagmi": "0.4.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.7",
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6",
+    "postcss": "8.4.14",
+    "tailwindcss": "3.0.24"
+  }
+}
