@@ -1,0 +1,8 @@
+js
+test
+--recursive
+--reporter spec
+--require ./test/test.bootstrap
+--require ./server.bootstrap
+--slow 500
+--timeout 3000

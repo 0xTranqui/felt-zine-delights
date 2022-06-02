@@ -1,0 +1,6 @@
+test
+js
+--recursive
+--reporter spec
+--slow 1000000
+--timeout 0
