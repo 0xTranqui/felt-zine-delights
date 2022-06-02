@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -34,9 +35,11 @@ const Home = () => {
           <div className="text-3xl mt-60 h-fit w-full flex flex-row justify-center " >
             Look Both Ways Before You
           </div>
-          <button className="text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-2 border-solid border-white" >
-            ENTER
-          </button>
+          <Link href="/decisions">
+            <button className="text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-2 border-solid border-white" >
+              ENTER
+            </button>
+          </Link>
         </div>
       </main>
       <Footer />
