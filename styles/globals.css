@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://rsms.me/inter/inter.css');
+
+@supports (font-variation-settings: normal) {
+   body {
+      font-family: "Inter var", sans-serif
+   }
+}
+
+* {
+   box-sizing: border-box;
+}
+
+html, body {
+   padding: 0;
+   margin: 0;
+   font-family: "Inter", sans-serif  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue;
+   background-color: black;
+   color: white;
+}
+
+a {
+   color: inherit;
+   text-decoration: none
+}
+
+a:hover, a:focus, a:active {
+   text-decoration: underline;
+   color: inherit;
+}
