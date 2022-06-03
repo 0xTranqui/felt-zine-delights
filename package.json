@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "0.2.1",
+    "@zoralabs/nft-drop-contracts": "^1.0.1",
     "ethers": "5.6.8",
     "next": "12.1.6",
     "react": "17.0.0",

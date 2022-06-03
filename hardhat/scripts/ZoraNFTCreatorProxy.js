@@ -27,7 +27,7 @@ const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 const ZoraNFTCreatorProxy = new ethers.Contract(proxyAddress, ZoraNFTCreatorV1_ABI.abi, signer)
 
 // hardcode desired mint price in ether as a string
-const price = "0.01" 
+const price = "0.02" 
 
 // setting arguments that we will be passing into the createDrop function
 // ===== contract params for ZoraNFTCreatorProxy are as follows : 
@@ -54,22 +54,22 @@ const price = "0.01"
 
 const createDropArgs = [
    "Felt Zine Garden of Earthly Delights", // name - string
-   "FZGED", // symbol - string
+   "GFZD", // symbol - string
    "0xA02555D67adB4C9DA3688363413550330d79F420", // defaultAdmin - address
    500, // editionSize - uint64
    500, // royaltyBPS - uint16
    "0xA02555D67adB4C9DA3688363413550330d79F420", // fundsRecipient - address
    [ // salesConfig - tuple
      ethers.utils.parseEther(price), // publicSalePrice (wei) - uint104
-     5, // maxSalePurchasePerAddress - uint32
+     0, // maxSalePurchasePerAddress - uint32
      1654181910, // publicSaleStart - uint64
      5000000000, // publicSaleEnd - uint64
      0, // presaleStart - uint64
      0, // presaleEnd - uint64
      "0x0000000000000000000000000000000000000000000000000000000000000000", // presaleMerkleRoot - bytes32
   ], 
-   "ipfs://test_URIBase", // metadataURIBase - string
-   "ipfs://ContractURI", // metadataContractURI - string
+   "ipfs://QmerhTV55wbCWKaTNwiRJByPfdaXuBNJ6gs6opiRW3r73A/", // metadataURIBase - string
+   "ipfs://QmerhTV55wbCWKaTNwiRJByPfdaXuBNJ6gs6opiRW3r73A/0.json", // metadataContractURI - string
 ]
 
 async function main() {
@@ -88,9 +88,9 @@ async function main() {
   console.log("Transaction successful!")
   console.log("NFT contract address =", txResult.logs[0].address)
   console.log("Transaction hash of NFT contract creation =", txResult.logs[0].transactionHash)
-  console.log("whats Private_Key", PRIVATE_KEY)
-  console.log("whats privateKeyTest", privateKeyTest)
-  console.log("whats api key", API_KEY)
+  // console.log("whats Private_Key", PRIVATE_KEY)
+  // console.log("whats privateKeyTest", privateKeyTest)
+  // console.log("whats api key", API_KEY)
 }
 
 main()
@@ -102,20 +102,15 @@ main()
 
 /*
 
-How everything works
+===== How everything works
 
 1. load abi for ZoraNFTCreatorV1 contract (factory contract that allows you to create editions/collections)
 2. instantiate the ZoraNFTCreatorProxy contract, passing in the abi for the ZoraNFTCreatorV1 contract
 3. define the paramters you want to pass into the createDrop function
 4. send a transaction to the ZoraNFTCreatorProxy contract calling the createDrop function
-5. the ZoraNFTCreatorProxy contract will then make multiple calls to set up your NFT
-contract. One of which will be the creation of a contract called "ERC721DropProxy",
-which is actually your end product. On etherscan, you must confirm that it is indeed a proxy
-by going to the contract page, clicking the code tab, clicking the "More Options" button,
-and then clicking the "Is this a proxy?" dropdown
+5. the ZoraNFTCreatorProxy contract will then make multiple calls to set up your NFT contract. One of which will be the creation of a contract called "ERC721DropProxy", which is actually your end product. On etherscan, you must confirm that it is indeed a proxy by going to the contract page, clicking the code tab, clicking the "More Options" button, and then clicking the "Is this a proxy?" dropdown
 6. This will then take you to a UI that allows you to verify your contract as a proxy contract
 7. Once complete, go back to your ERC721DropProxy contract and you can start interacting with it!
-8. Take over the NFT game
 
 */
 

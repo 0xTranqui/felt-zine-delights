@@ -36,7 +36,7 @@ const Home = () => {
             Look Both Ways Before You
           </div>
           <Link href="/decisions">
-            <button className="text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-2 border-solid border-white" >
+            <button className="text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-2 border-solid border-white hover:bg-white hover:text-black" >
               ENTER
             </button>
           </Link>
@@ -46,6 +46,8 @@ const Home = () => {
     </div>
   );
 };
+
+
 
 
 export default Home;
