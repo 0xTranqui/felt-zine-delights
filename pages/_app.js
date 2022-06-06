@@ -5,6 +5,7 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { AppWrapper } from '../context/appContext.js';
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.rinkeby],
@@ -33,8 +34,10 @@ function MyApp({ Component, pageProps }) {
         chains={chains} 
         theme={darkTheme({
           borderRadius: "none"
-        })}>
-        <Component {...pageProps} />
+      })}>
+        <AppWrapper>
+          <Component {...pageProps} />
+        </AppWrapper>  
       </RainbowKitProvider>
     </WagmiConfig>
   );

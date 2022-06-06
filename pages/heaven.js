@@ -5,6 +5,9 @@ import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, e
 import { ethers, BigNumber } from 'ethers'
 import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC721Drop.sol/ERC721Drop.json"
 
+import MintQuantity from "../components/MintQuantity";
+import { useAppContext } from '../context/appContext'
+
 const linkedNFTContract = "0x210ff4C1cD54158a3402095E0BA8cF2121E28295";
 /* running list of test contracts
 1. 0x3F8033eA907c2EcD71ECc076A9C2AB67a4288ce5
@@ -13,6 +16,8 @@ const linkedNFTContract = "0x210ff4C1cD54158a3402095E0BA8cF2121E28295";
 */
 
 const Heaven = () => {
+
+   const { mintQuantity, setMintQuantity } = useAppContext() 
 
    // NFT saleDetails read call
    const { data: saleDetailsData, isError: saleDetailsError, isLoading: saleDetailsLoading } = useContractRead(
@@ -39,8 +44,7 @@ const Heaven = () => {
    const saleDetails_mintPrice = saleDetailsData ? BigNumber.from(saleDetailsData[2]).toString() : "loading"
 
    // NFT purchase (aka mint) write call
-   const mintQuantity = "1"
-   const msgValue = saleDetailsData ? String(mintQuantity * saleDetails_mintPrice) : "000";
+   const msgValue = saleDetailsData ? String(mintQuantity.queryValue * saleDetails_mintPrice) : "000";
 
    const { data: purchaseData, isError: purchaseError, isLoading: purchaseLoading, status: writeStatus, write: purchaseWrite } = useContractWrite(
       {
@@ -50,7 +54,7 @@ const Heaven = () => {
       "purchase",
       {
          args: [
-            mintQuantity
+            mintQuantity.queryValue
          ],
          overrides: {
             value: BigNumber.from(msgValue).toString()
@@ -80,12 +84,16 @@ const Heaven = () => {
                <div className="text-3xl mt-60 h-fit w-full flex flex-row justify-center " >
                   Eternal Paradise Awaits
                </div>
-               <button 
-                  className="text-2xl mt-8 py-3 p-3 w-3/12 h-fit flex flex-row justify-center justify-items-center border-2 border-solid border-[#61CDFF] hover:bg-[#61CDFF] hover:text-black"
-                  onClick={() => purchaseWrite()}   
-               >
-                  Mint
-               </button>
+               <div className="mt-8 w-full flex flex-row justify-center">
+                  <MintQuantity />
+                  <button 
+                     className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#61CDFF] hover:bg-[#61CDFF] hover:text-black"
+                     onClick={() => purchaseWrite()}   
+                  >
+                     Mint
+                  </button>
+               </div>
+
                { waitLoading == true ? (
                   <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
                      <div className="mb-5 grid grid-rows-1 grid-cols-2">

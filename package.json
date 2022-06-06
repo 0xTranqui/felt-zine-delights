@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
+    "@headlessui/react": "^1.6.4",
+    "@heroicons/react": "^1.0.6",
     "@rainbow-me/rainbowkit": "0.2.1",
     "@zoralabs/nft-components": "^1.1.0",
     "@zoralabs/nft-drop-contracts": "^1.0.1",
