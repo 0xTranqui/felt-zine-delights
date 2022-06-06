@@ -27,7 +27,7 @@ const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 const ZoraNFTCreatorProxy = new ethers.Contract(proxyAddress, ZoraNFTCreatorV1_ABI.abi, signer)
 
 // hardcode desired mint price in ether as a string
-const price = "0.02" 
+const price = "0.01" 
 
 // setting arguments that we will be passing into the createDrop function
 // ===== contract params for ZoraNFTCreatorProxy are as follows : 
@@ -68,7 +68,7 @@ const createDropArgs = [
      0, // presaleEnd - uint64
      "0x0000000000000000000000000000000000000000000000000000000000000000", // presaleMerkleRoot - bytes32
   ], 
-   "ipfs://QmYfF2QHybZAovuk6XUgxFuNkAV9wS4s3QxLR5VTymDvPr/", // metadataURIBase - string
+   "ipfs://QmWNQALTWsuxxvPGMeiP2i26yvKiQzq4MFuaRj3GzQvJ7A/", // metadataURIBase - string
    "ipfs://QmYfF2QHybZAovuk6XUgxFuNkAV9wS4s3QxLR5VTymDvPr/0.json" // metadataContractURI - string
 ]
 

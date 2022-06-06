@@ -8,12 +8,10 @@ import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC
 import MintQuantity from "../components/MintQuantity";
 import { useAppContext } from '../context/appContext'
 
-const linkedNFTContract = "0x210ff4C1cD54158a3402095E0BA8cF2121E28295";
-/* running list of test contracts
-1. 0x3F8033eA907c2EcD71ECc076A9C2AB67a4288ce5
-2. 0x210ff4C1cD54158a3402095E0BA8cF2121E28295
+import { linkedNFTContract } from "../public/constants";
+import PostMintDialog from "../components/PostMintDialog";
 
-*/
+const hellish = "#FF3333"
 
 const Hell = () => {
 
@@ -85,7 +83,7 @@ const Hell = () => {
                   Eternal Suffering Awaits
                </div>
                <div className="mt-8 w-full flex flex-row justify-center">
-                  <MintQuantity />
+                  <MintQuantity colorScheme={hellish} />
                   <button 
                      className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#FF3333] hover:bg-[#FF3333] hover:text-black"
                      onClick={() => purchaseWrite()}   
@@ -93,7 +91,12 @@ const Hell = () => {
                      Mint
                   </button>
                </div>
-
+               <PostMintDialog               
+                  txnLoadingStatus={waitLoading}
+                  txnSuccessStatus={writeStatus}
+                  txnHashLink={waitData}
+                  colorScheme={hellish}
+               />
                { waitLoading == true ? (
                   <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
                      <div className="mb-5 grid grid-rows-1 grid-cols-2">
@@ -110,31 +113,12 @@ const Hell = () => {
                         {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
                      </div>
                   </div>   
-                  ) : (
-                  <>
-                     { writeStatus == "success" ? (
-                        <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
-                           <Link className="w-full" href="/gallery">
-                              <a style={{ textDecoration: "underline" }} >See mint in hell</a>
-                           </Link>                                                 
-                           <div className="w-full text-center">
-                              {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
-                           </div>
-                           <div className="w-full text-center" >
-                              {"MINT TXN HASH = "}
-                              <a href={"https://rinkeby.etherscan.io/" + waitData.transactionHash} >
-                                 {waitData.transactionHash}
-                              </a>
-                           </div>                             
-                        </div> 
-                        ) : (
-                        <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
-                           <div className="w-full text-center">
-                              {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
-                           </div>
-                        </div> 
-                     )}
-                  </>   
+                  ) : (                  
+                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
+                     <div className="w-full text-center">
+                        {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                     </div>
+                  </div>                                          
                )}         
             </div>
             <Link href="/decisions">
