@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@agney/react-loading": "^0.1.2",
     "@rainbow-me/rainbowkit": "0.2.1",
+    "@zoralabs/nft-components": "^1.1.0",
     "@zoralabs/nft-drop-contracts": "^1.0.1",
+    "@zoralabs/nft-hooks": "^1.1.4",
     "ethers": "5.6.8",
     "next": "12.1.6",
     "react": "17.0.0",

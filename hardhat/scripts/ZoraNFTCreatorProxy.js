@@ -53,7 +53,7 @@ const price = "0.02"
 // presaleMerkleRoot (bytes32) - set this to the following if not implementing an allowList: "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 const createDropArgs = [
-   "Felt Zine Garden of Earthly Delights", // name - string
+   "Garden of Felt Zine Delights", // name - string
    "GFZD", // symbol - string
    "0xA02555D67adB4C9DA3688363413550330d79F420", // defaultAdmin - address
    500, // editionSize - uint64
@@ -68,8 +68,8 @@ const createDropArgs = [
      0, // presaleEnd - uint64
      "0x0000000000000000000000000000000000000000000000000000000000000000", // presaleMerkleRoot - bytes32
   ], 
-   "ipfs://QmerhTV55wbCWKaTNwiRJByPfdaXuBNJ6gs6opiRW3r73A/", // metadataURIBase - string
-   "ipfs://QmerhTV55wbCWKaTNwiRJByPfdaXuBNJ6gs6opiRW3r73A/0.json", // metadataContractURI - string
+   "ipfs://QmYfF2QHybZAovuk6XUgxFuNkAV9wS4s3QxLR5VTymDvPr/", // metadataURIBase - string
+   "ipfs://QmYfF2QHybZAovuk6XUgxFuNkAV9wS4s3QxLR5VTymDvPr/0.json" // metadataContractURI - string
 ]
 
 async function main() {

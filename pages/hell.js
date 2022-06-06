@@ -5,10 +5,16 @@ import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, e
 import { ethers, BigNumber } from 'ethers'
 import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC721Drop.sol/ERC721Drop.json"
 
-const linkedNFTContract = "0x3F8033eA907c2EcD71ECc076A9C2AB67a4288ce5";
+const linkedNFTContract = "0x210ff4C1cD54158a3402095E0BA8cF2121E28295";
+/* running list of test contracts
+1. 0x3F8033eA907c2EcD71ECc076A9C2AB67a4288ce5
+2. 0x210ff4C1cD54158a3402095E0BA8cF2121E28295
+
+*/
 
 const Hell = () => {
 
+   // NFT saleDetails read call
    const { data: saleDetailsData, isError: saleDetailsError, isLoading: saleDetailsLoading } = useContractRead(
       {
          addressOrName: linkedNFTContract,
@@ -36,7 +42,7 @@ const Hell = () => {
    const mintQuantity = "1"
    const msgValue = saleDetailsData ? String(mintQuantity * saleDetails_mintPrice) : "000";
 
-   const { data: purchaseData, isError: purchaseError, isLoading: purchaseLoading, write: purchaseWrite } = useContractWrite(
+   const { data: purchaseData, isError: purchaseError, isLoading: purchaseLoading, status: writeStatus, write: purchaseWrite } = useContractWrite(
       {
          addressOrName: linkedNFTContract,
          contractInterface: ERC721Drop_abi.abi
@@ -48,20 +54,20 @@ const Hell = () => {
          ],
          overrides: {
             value: BigNumber.from(msgValue).toString()
-         }
+         },
+         onError(error) {
+            console.log("Error", error)
+         }         
       }
    )
 
-   const waitForTransaction = useWaitForTransaction({
+   const { data: waitData, isError: waitError, isLoading: waitLoading } = useWaitForTransaction({
       hash: purchaseData?.hash,
-      onError(error) {
-         console.log('error', error)
-      },
-      onSuccess(data) {
-         console.log("sucess", data)
+      onSuccess(waitData) {
+         console.log("txn complete", waitData)
+         console.log("txn hash", waitData.transactionHash)         
       }
-   })  
-
+   })
 
    return (
       <div className='min-h-screen h-screen text-[#FF3333]'>
@@ -80,11 +86,48 @@ const Hell = () => {
                >
                   Mint
                </button>
-               <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
-                  <div className="w-full text-center">
-                     {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
-                  </div>
-               </div>
+               { waitLoading == true ? (
+                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
+                     <div className="mb-5 grid grid-rows-1 grid-cols-2">
+                        <div className="flex flex-row justify-self-center items-center">
+                           TXN Processing
+                        </div>                     
+                        <img
+                           className="w-fit flex flex-row justify-self-center items-center"
+                           width="20px" 
+                           src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
+                        />
+                     </div>
+                     <div className="w-full text-center">
+                        {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                     </div>
+                  </div>   
+                  ) : (
+                  <>
+                     { writeStatus == "success" ? (
+                        <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
+                           <Link className="w-full" href="/gallery">
+                              <a style={{ textDecoration: "underline" }} >See mint in hell</a>
+                           </Link>                                                 
+                           <div className="w-full text-center">
+                              {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                           </div>
+                           <div className="w-full text-center" >
+                              {"MINT TXN HASH = "}
+                              <a href={"https://rinkeby.etherscan.io/" + waitData.transactionHash} >
+                                 {waitData.transactionHash}
+                              </a>
+                           </div>                             
+                        </div> 
+                        ) : (
+                        <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
+                           <div className="w-full text-center">
+                              {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                           </div>
+                        </div> 
+                     )}
+                  </>   
+               )}         
             </div>
             <Link href="/decisions">
                <a className="absolute w-1/2 inset-x-1/4 bottom-10 text-center">
