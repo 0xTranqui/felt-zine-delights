@@ -3,7 +3,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import Link from 'next/link';
 
 export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txnHashLink, colorScheme }) {
-   // export default function PostMintDialog({ txnHashLink, inputContract, inputTokenId, advancedFilterCB, setTokenCB, setContractCB, fetchDataCB }) {
    let [isOpen, setIsOpen] = useState(false)
    let [isRendered, setIsRendered] = useState("");
 
@@ -14,6 +13,8 @@ export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txn
    function openModal() {
    setIsOpen(true)
    }
+
+   const localTxnHash = txnHashLink ? txnHashLink.transactionHash : ""
 
    const shortenedHash = (hash) => {
       let displayHash = hash?.substr(0,4) + "..." + hash?.substr(-4)
@@ -75,9 +76,9 @@ export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txn
                               {"Transaction Link - "}
                                  <a 
                                     className={` hover:text-[${colorScheme}]`}
-                                    style={{ textDecoration: "underline" }} href={"https://rinkeby.etherscan.io/tx/" + txnHashLink.transactionHash}
+                                    style={{ textDecoration: "underline" }} href={"https://rinkeby.etherscan.io/tx/" + localTxnHash}
                                  >
-                                    {shortenedHash(txnHashLink.transactionHash)}
+                                    {shortenedHash(localTxnHash)}
                                  </a>
                               </div>
                               <div className="mb-5">

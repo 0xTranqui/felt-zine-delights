@@ -10,9 +10,8 @@ import { AppWrapper } from '../context/appContext.js';
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.rinkeby],
   [
-    alchemyProvider({ alchemyID: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
-    publicProvider(),
-    jsonRpcProvider({ rpc: () => ({ http: 'https://rpc.ankr.com/eth' }) })    
+    alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
+    publicProvider()
   ],
 );
 
