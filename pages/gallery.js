@@ -7,7 +7,7 @@ import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC
 import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
-import NFTCard from "../components/nftCard"
+import NFTCard from "../components/NFTCard"
 import Link from "next/link"
 import Footer from "../components/Footer"
 

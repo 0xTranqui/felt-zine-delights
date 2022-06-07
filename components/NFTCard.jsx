@@ -1,18 +1,8 @@
 
 import { NFTPreview, MediaConfiguration } from "@zoralabs/nft-components";
 import { useAccount, useContractRead, useEnsName, etherscanBlockExplorers } from "wagmi";
-import { createClient } from "urql";
 import { linkedNFTContract } from "../public/constants";
 import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
-
-// const APIURL = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
-// // list of diff APIs
-// // rinkeby legacy: https://indexer-dev-rinkeby.zora.co/v1/graphql
-// // new mainnet: 
-
-// const client = createClient({
-//    url: APIURL
-// })
 
 const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
    Networks.RINKEBY
