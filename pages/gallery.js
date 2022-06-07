@@ -8,6 +8,8 @@ import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
 import NFTCard from "../components/nftCard"
+import Link from "next/link"
+import Footer from "../components/Footer"
 
 const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
    Networks.RINKEBY
@@ -146,6 +148,13 @@ export default function Gallery() {
          </div>
          <div className="flex flex-row flex-wrap justify-center">
             {loading ? "loading . . . " : <NFTCard  nfts={rawData} />}
+         </div>
+         <div className="mt-10 mb-5 hover:text-red-500">
+            <Link href="/">
+               <a>
+                  ← BACK TO THE BEGINNING
+               </a>
+            </Link>
          </div>
       </div>
    )

@@ -82,7 +82,7 @@ export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txn
                                  </a>
                               </div>
                               <div className="mb-5">
-                                 <Link   href="/gallery">
+                                 <Link href="/gallery">
                                     <a className={` hover:text-[${colorScheme}]`} style={{ textDecoration: "underline" }}>
                                        See Your Collection ➝ 
                                     </a>

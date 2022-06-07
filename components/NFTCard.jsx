@@ -64,7 +64,6 @@ const NFTCard = ({ nfts }) => {
                         }}
                      >
                         <NFTPreview
-
                            contract={linkedNFTContract}
                            id={nft.tokenId}
                            showBids={false}
