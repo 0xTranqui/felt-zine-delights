@@ -1,15 +1,17 @@
 import Header from "../components/Header"
-import { useContractRead } from "wagmi"
+import Footer from "../components/Footer"
+import NFTCard from "../components/NFTCard"
+import { linkedNFTContract } from "../public/constants"
+import Link from "next/link"
+import { useContractRead, useAccount } from "wagmi"
 import { MediaThumbnail, NFTPreview, MediaConfiguration } from "@zoralabs/nft-components"
 import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
-import { linkedNFTContract } from "../public/constants"
 import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC721Drop.sol/ERC721Drop.json"
 import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
-import NFTCard from "../components/NFTCard"
-import Link from "next/link"
-import Footer from "../components/Footer"
+import { Switch } from "@headlessui/react"
+import { heavenly, hellish } from "../public/constants"
 
 const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
    Networks.RINKEBY
@@ -24,11 +26,16 @@ const client = createClient({
    url: APIURL
 })
 
-
 export default function Gallery() {
    const [nftsMinted, setNFTsMinted] = useState();
    const [loading, setLoading] = useState(false);
    const [rawData, setRawData] = useState();
+   const [userData, setUserData] = useState()
+   const [enabled, setEnabled] = useState(false);
+   
+   // hook to get the current account of user
+   const { data: account, isError: accountError, isLoading: accountLoading } = useAccount(); 
+   const currentUserAddress = account ? account.address : ""
 
    // read call to get current totalSupply
    const { data: supplyData, isError: supplyError, isLoading: supplyLoading } = useContractRead(
@@ -53,15 +60,6 @@ export default function Gallery() {
    const totalSupply = supplyData ? BigNumber.from(supplyData).toString() : "loading"
    const numOfCallsRequired = Math.ceil(totalSupply / 100)
 
-   const whatsThis = (id) => {
-      /// wasnt working cuz i needed to update the fetch config to the old indexer
-      const bruh = useNFT(
-         "0x8D7c80bBF27d8c96414238ed1F87B8726a1B3eDF",
-         id
-      )
-      console.log(bruh)
-      return 
-   }
 
    const generateCalls = (numCalls) => {
       const callArray = [];
@@ -109,6 +107,18 @@ export default function Gallery() {
       } return masterArray
    }
 
+   const ownerFilter = (rawData) => {
+      const filteredArray = []
+         const filteredNFTs = rawData.filter((nft) => {
+            if (nft.owner === currentUserAddress) {
+               filteredArray.push(nft)
+            }
+            return filteredArray
+         });
+      setUserData(filteredArray)
+   }
+
+
    const fetchData = async () => {
       console.log("fetching data")
 
@@ -123,9 +133,11 @@ export default function Gallery() {
 
          const promiseResults = concatPromiseResults(promiseReturns)
 
-         console.log("promiseResults: ", promiseResults);
+         // console.log("promiseResults: ", promiseResults);
 
          setRawData(promiseResults)
+
+         ownerFilter(promiseResults)
 
       } catch(error) {
          console.error(error.message)
@@ -140,22 +152,63 @@ export default function Gallery() {
       []
    )
 
+   useEffect(() => {
+      if(!!rawData)
+      ownerFilter(rawData);
+      },
+      [currentUserAddress]
+   )
+
    return (
       <div className="flex flex-row flex-wrap justify-center">
+
          <Header />
-         <div className="text-6xl mt-20 mb-10">
+
+         <div className="text-6xl mt-20 mb-5 text-center">
             DELIGHTFUL GALLERY
          </div>
+
+         <Switch.Group>
+            <div className="mb-5 w-full flex flex-row justify-center items-center">
+               <Switch.Label className="mr-4">FULL COLLECTION</Switch.Label>
+               <Switch
+                  checked={enabled}
+                  onChange={setEnabled}
+                  className={`${enabled ? `bg-[${heavenly}]` : `bg-[${hellish}]`}
+                     relative inline-flex h-[30px] w-[66px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  >
+                  <span className="sr-only">Use setting</span>
+                  <span
+                     aria-hidden="true"
+                     className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
+                        pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                  />
+               </Switch>
+               <Switch.Label className="ml-4">MY COLLECTION</Switch.Label>
+            </div>
+         </Switch.Group>
+
          <div className="flex flex-row flex-wrap justify-center">
-            {loading ? "loading . . . " : <NFTCard  nfts={rawData} />}
+            {
+               loading ? "loading . . . " : 
+               <>
+               { enabled === false ? ( 
+               <NFTCard  nfts={rawData} />
+               ) : (
+               <NFTCard  nfts={userData} />
+               )}
+               </>               
+            }
          </div>
+
          <div className="mt-10 mb-5 hover:text-red-500">
             <Link href="/">
                <a>
-                  ← BACK TO THE BEGINNING
+                  _ a _ f e l t _ z i n e _ p r o d u c t i o n _ 
                </a>
             </Link>
          </div>
+
       </div>
    )
 }

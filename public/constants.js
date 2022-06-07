@@ -10,7 +10,8 @@ export const linkedNFTContract = "0x8D7c80bBF27d8c96414238ed1F87B8726a1B3eDF"
 6.
 7.
 8.
-
-
-
 */
+
+export const heavenly = "#61CDFF"
+
+export const hellish = "#FF3333"

@@ -30,7 +30,7 @@ const Home = () => {
       <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
         <div className="flex flex-col flex-wrap items-center">
           <div className="text-6xl h-fit w-full flex flex-row justify-center " >
-            Felt Zine Garden of Earthly Delights
+            Garden of Felt Zine Delights
           </div>
           <div className="text-3xl mt-60 h-fit w-full flex flex-row justify-center " >
             Look Both Ways Before You

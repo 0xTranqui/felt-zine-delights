@@ -17,7 +17,7 @@ const NFTCard = ({ nfts }) => {
             ?
             nfts.map((nft, index) => {
                return (
-                  <div className="border-2 border-solid border-white flex flex-row flex-wrap justify-content">
+                  <div className=" flex flex-row flex-wrap justify-content">
                      <MediaConfiguration
                         networkId="4"
                         strategy={zdkStrategy}
