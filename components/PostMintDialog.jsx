@@ -67,21 +67,20 @@ export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txn
                         leaveTo="opacity-0 scale-95"
                      >
                      <Dialog.Panel className="w-fit transform overflow-hidden bg-black align-middletransition-all shadow-[0_0px_30px_10px_rgba(0,0,0,1)]" >
-                        <div className="border-white border-4 border-solid max-w-xs my-2 overflow-hidden rounded-none shadow-lg">
-                           <div className="px-6 py-4">
-                              <div className="mb-5">
+                        <div className="border-white border-4 border-solid my-2 overflow-hidden rounded-none shadow-lg">
+                           <div className="px-8 py-4">
+                              <div className="text-3xl mb-5">
                                  MINT SUCCESSFUL
                               </div>
-                              <div className="mb-5">
-                              {"Transaction Link - "}
+                              <div className="text-2xl mb-5">
                                  <a 
                                     className={` hover:text-[${colorScheme}]`}
                                     style={{ textDecoration: "underline" }} href={"https://rinkeby.etherscan.io/tx/" + localTxnHash}
                                  >
-                                    {shortenedHash(localTxnHash)}
+                                    Transaction Link
                                  </a>
                               </div>
-                              <div className="mb-5">
+                              <div className="text-2xl mb-5">
                                  <Link href="/gallery">
                                     <a className={` hover:text-[${colorScheme}]`} style={{ textDecoration: "underline" }}>
                                        See Your Collection ➝ 
@@ -90,7 +89,7 @@ export default function PostMintDialog({ txnLoadingStatus, txnSuccessStatus, txn
                               </div>
                                  <button                                    
                                     className={` hover:bg-[${colorScheme}] 
-                                    mt-5 px-4 py-2 text-white bg-black rounded-none borer-solid border-white border-4 hover:text-black`} 
+                                    px-4 py-2 text-xl text-white bg-black rounded-none borer-solid border-white border-4 hover:text-black`} 
                                     onClick={() => {
                                     closeModal()                          
                                     }}
