@@ -181,7 +181,7 @@ const Heaven = () => {
                         }
                      }   
                   >
-                     Public Mint
+                     Mint
                   </button>
                </div>
                <PostMintDialog 
