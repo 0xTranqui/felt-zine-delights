@@ -1,7 +1,6 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import NFTCard from "../components/NFTCard"
-import { linkedNFTContract } from "../public/constants"
 import Link from "next/link"
 import { useContractRead, useAccount } from "wagmi"
 import { MediaThumbnail, NFTPreview, MediaConfiguration } from "@zoralabs/nft-components"
@@ -12,6 +11,7 @@ import { useState, useEffect } from 'react'
 import { createClient } from "urql"
 import { Switch } from "@headlessui/react"
 import { heavenly, hellish } from "../public/constants"
+import { linkedNFTContract } from "../public/constants"
 
 const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
    Networks.RINKEBY
@@ -70,7 +70,7 @@ export default function Gallery() {
          Token(
             where: 
             {
-               address: {_eq:"0x8D7c80bBF27d8c96414238ed1F87B8726a1B3eDF" } 
+               address: {_eq: "${linkedNFTContract}" } 
             }
             limit: 100
             offset: ${i * 100}

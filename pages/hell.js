@@ -3,73 +3,161 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, etherscanBlockExplorers } from 'wagmi';
 import { ethers, BigNumber } from 'ethers'
-import * as ERC721Drop_abi from "@zoralabs/nft-drop-contracts/dist/artifacts/ERC721Drop.sol/ERC721Drop.json"
-
+import * as ERC721_abi from "../contractABI/abi.json"
 import MintQuantity from "../components/MintQuantity";
 import { useAppContext } from '../context/appContext'
-
 import { linkedNFTContract } from "../public/constants";
 import PostMintDialog from "../components/PostMintDialog";
+import { useEffect, useState } from "react";
+const { MerkleTree } = require('merkletreejs');
+const keccak256 = require('keccak256');
 
 const hellish = "#FF3333"
 
 const Hell = () => {
+   
+   const { mintQuantity, setMintQuantity } = useAppContext()
+   const [accountHexProof, setAccountHexProof] = useState(); 
+   const [accountIncluded, setAccountIncluded] = useState("false");
 
-   const { mintQuantity, setMintQuantity } = useAppContext() 
+   // get account hook
+   const { data: account, isError: accountError, isLoading: accountLoading } = useAccount(); 
+   const currentUserAddress = account ? account.address.toString() : ""
 
-   // NFT saleDetails read call
-   const { data: saleDetailsData, isError: saleDetailsError, isLoading: saleDetailsLoading } = useContractRead(
+     // totalSupply read call
+   const { data: totalSupplyData, isError: totalSupplyError, isLoading: totalSupplyLoading } = useContractRead(
       {
          addressOrName: linkedNFTContract,
-         contractInterface: ERC721Drop_abi.abi
+         contractInterface: ERC721_abi.abi
       },      
-      "saleDetails",
+      "totalSupply",
       {
          watch: true,
       },
       {
          onError(error) {
-            console.log("error", error)
+            console.log("error: ", error)
          },
-         onSuccess(saleDetailsData) {
-            console.log("saleDetails", saleDetailsData)
+         onSuccess(totalSupplyData) {
+            console.log("totalSupply: ", totalSupplyData)
          },
       },   
-   )      
+   )
+   
+   const totalSupply = totalSupplyData ? totalSupplyData.toString() : "loading"
+   const MAX_SUPPLY = "500"
+   const publicMintPrice = "40000000000000000" // 0.04 eth
+   const holderMintPrice = "20000000000000000" // 0.02 eth
 
-   const saleDetails_totalMinted = saleDetailsData ? BigNumber.from(saleDetailsData[9]).toString()  : "loading"
-   const saleDetails_maxSupply = saleDetailsData ? BigNumber.from(saleDetailsData[10]).toString()  : "loading"
-   const saleDetails_mintPrice = saleDetailsData ? BigNumber.from(saleDetailsData[2]).toString() : "loading"
+   // checking current account for inclusion on allowlist
+   const merkleMe = () => {
 
-   // NFT purchase (aka mint) write call
-   const msgValue = saleDetailsData ? String(mintQuantity.queryValue * saleDetails_mintPrice) : "000";
+      const whitelistAddresses = [
+         "0xA02555D67adB4C9DA3688363413550330d79F420",
+         "0x806164c929Ad3A6f4bd70c2370b3Ef36c64dEaa8",
+         "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
+         "0x5e080d8b14c1da5936509c2c9ef0168a19304202"
+      ]
 
-   const { data: purchaseData, isError: purchaseError, isLoading: purchaseLoading, status: writeStatus, write: purchaseWrite } = useContractWrite(
+      const leafNodes = whitelistAddresses.map(addr => keccak256(addr));
+      const leafNodesHashStrings = leafNodes.map(addr => addr.toString('hex'))
+      const accountKeccakdHashString = keccak256(currentUserAddress).toString('hex')
+      const claimingAddress = keccak256(currentUserAddress);
+      const isIncluded = leafNodesHashStrings.includes(accountKeccakdHashString);
+      setAccountIncluded(isIncluded)
+
+      if (isIncluded) {
+         const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+
+         const hexProof = merkleTree.getHexProof(claimingAddress);
+         setAccountHexProof(hexProof);
+         console.log("what hex prrof got passed in", hexProof);
+   
+         const rootHash = merkleTree.getRoot();
+         const rootHashBytes32 = '0x' + merkleTree.getRoot().toString('hex')
+      }
+   }
+
+   // holder mint write call
+
+   const holderMintMsgValue = String(mintQuantity.queryValue * holderMintPrice);
+
+   const { data: holderMintData, isError: holderMintError, isLoading: holderMintLoading, status: holderMintStatus, write: holderMintWrite } = useContractWrite(
       {
          addressOrName: linkedNFTContract,
-         contractInterface: ERC721Drop_abi.abi
+         contractInterface: ERC721_abi.abi
       },
-      "purchase",
+      "fzHoldersMint",
+      {
+         args: [
+            mintQuantity.queryValue,
+            accountHexProof
+         ],
+         overrides: {
+            value: holderMintMsgValue 
+         },
+         onError(error) {
+            console.log("Error: ", error)
+         }
+      }
+   )
+
+   const { data: holderMintWaitData, isError: holderMintWaitError, isLoading: holderMintWaitLoading } = useWaitForTransaction({
+      hash:  holderMintData?.hash,
+      onSuccess(holderMintWaitData) {
+         console.log("txn complete: ", holderMintWaitData)
+         console.log("txn hash: ", holderMintWaitData.transactionHash)
+      }
+   })        
+
+
+   // public mint write call information
+
+   const publicMintMsgValue = String(mintQuantity.queryValue * publicMintPrice);
+            
+   const { data: publicMintData, isError: publicMintError, isLoading: publicMintLoading, status: publicMintStatus, write: publicMintWrite } = useContractWrite(
+      {
+         addressOrName: linkedNFTContract,
+         contractInterface: ERC721_abi.abi
+      },
+      "publicMint",
       {
          args: [
             mintQuantity.queryValue
          ],
          overrides: {
-            value: BigNumber.from(msgValue).toString()
+            value: publicMintMsgValue  
          },
          onError(error) {
-            console.log("Error", error)
-         }         
+            console.log("Error: ", error)
+         }
       }
    )
 
-   const { data: waitData, isError: waitError, isLoading: waitLoading } = useWaitForTransaction({
-      hash: purchaseData?.hash,
-      onSuccess(waitData) {
-         console.log("txn complete", waitData)
-         console.log("txn hash", waitData.transactionHash)         
+   const { data: publicMintWaitData, isError: publicMintWaitError, isLoading: publicMintWaitLoading } = useWaitForTransaction({
+      hash:  publicMintData?.hash,
+      onSuccess(publicMintWaitData) {
+         console.log("txn complete: ", publicMintWaitData)
+         console.log("txn hash: ", publicMintWaitData.transactionHash)
       }
    })
+
+   // function that calls public/holder mint depending on account logged in
+   const masterMint = () => {
+
+      if (accountIncluded) {
+         holderMintWrite()
+         
+      } else {
+         publicMintWrite()
+      }
+   }
+
+   useEffect(() => {
+      merkleMe();
+      }, 
+      [currentUserAddress]
+   )
 
    return (
       <div className='min-h-screen h-screen text-[#FF3333]'>
@@ -86,18 +174,22 @@ const Hell = () => {
                   <MintQuantity colorScheme={hellish} />
                   <button 
                      className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#FF3333] hover:bg-[#FF3333] hover:text-black"
-                     onClick={() => purchaseWrite()}   
+                     onClick={() => masterMint()}   
                   >
                      Mint
                   </button>
                </div>
                <PostMintDialog               
-                  txnLoadingStatus={waitLoading}
-                  txnSuccessStatus={writeStatus}
-                  txnHashLink={waitData}
+                  isHolder={accountIncluded}
+                  publicTxnLoadingStatus={publicMintWaitLoading}
+                  publicTxnSuccessStatus={publicMintStatus}
+                  publicTxnHashLink={publicMintWaitData}
+                  holderTxnLoadingStatus={holderMintWaitLoading}
+                  holderTxnSuccessStatus={holderMintStatus}
+                  holderTxnHashLink={holderMintWaitData}
                   colorScheme={hellish}
                />
-               { waitLoading == true ? (
+               { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
                   <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">                    
                      <img
                         className="mb-8 w-fit flex flex-row justify-self-center items-center"
@@ -105,17 +197,17 @@ const Hell = () => {
                         src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
                      />
                      <div className="w-full text-center">
-                        {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                        {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
                      </div>
                   </div>   
                   ) : (                  
                   <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
                      <div className="w-full text-center">
-                        {`${saleDetails_maxSupply - saleDetails_totalMinted}` + " / " + `${saleDetails_maxSupply}` + " Pieces Remaining"}
+                     {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
                      </div>
                   </div>                                          
                )}         
-            </div>
+            </div> 
             <Link href="/decisions">
                <a className="absolute w-1/2 inset-x-1/4 bottom-10 text-center">
                   ← BACK TO PURGATORY
