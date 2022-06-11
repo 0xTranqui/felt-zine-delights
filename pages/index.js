@@ -37,22 +37,22 @@ console.log("currentuseraddress", currentUserAddress);
       </Head>    
       <Header />
       <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
-        <div className="flex flex-col flex-wrap items-center">
-          <div className=" text-center mb-20 py-8 px-4 border-[20px] border-double border-[#1a1b0a] bg-[#93814f] text-[#1a1b0a] font-bold font-gothiccc text-7xl h-fit w-full flex flex-row justify-center items-center" >
+        <div className="mt-10 flex flex-col flex-wrap items-center">
+          <div className=" text-center mb-10 py-8 px-4 border-[20px] border-double border-[#1a1b0a] bg-[#93814f] text-[#1a1b0a] font-bold font-gothiccc text-7xl h-fit w-full flex flex-row justify-center items-center" >
             Garden of Felt Zine Delights
           </div>
-          <div className=" py-8 border-[16px] border-double border-[#1a1b0a] mt-40 bg-[#93814f] text-[#1a1b0a] h-fit w-fit flex flex-row flex-wrap justify-center ">
-            <div className=" font-gothiccc text-5xl w-fit flex flex-row justify-center " >
-              Connect Wallet to Enter . . .
+          <div className=" py-8 border-[16px] border-double border-[#1a1b0a] mt-20 bg-[#93814f] text-[#1a1b0a] h-fit w-7/12 flex flex-row flex-wrap justify-center ">
+            <div className=" text-center font-gothiccc font-bold text-5xl w-fit flex flex-row justify-center " >
+              Connect Wallet to Enter
             </div>
             <div className="basis-full h-0"></div>
             <Link href="/decisions">
               { currentUserAddress === "" ? (
-              <button disabled={true}  className="rounded-3xl font-bold text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid border-[#1a1b0a] text-[#1a1b0a] bg-[#93814f]" >
+              <button disabled={true}  className="rounded-3xl font-bold text-2xl mt-5 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid border-[#1a1b0a] text-[#1a1b0a] bg-[#93814f]" >
                 D I S A B L E D
               </button>
               ) : (
-              <button disabled={false}  className="rounded-3xl font-bold text-2xl mt-8 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid  border-[#1a1b0a] bg-[#1a1b0a] text-[#93814f] hover:text-[#b5572b]" >
+              <button disabled={false}  className="rounded-3xl font-bold text-2xl mt-5 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid  border-[#1a1b0a] bg-[#1a1b0a] text-[#93814f] hover:text-[#b5572b]" >
                 E N T E R
               </button>
               )}        
