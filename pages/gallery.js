@@ -13,18 +13,17 @@ import { Switch } from "@headlessui/react"
 import { heavenly, hellish } from "../public/constants"
 import { linkedNFTContract } from "../public/constants"
 
-const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
-   Networks.RINKEBY
-);
 
-const APIURL = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
-// list of diff APIs
-// rinkeby legacy: https://indexer-dev-rinkeby.zora.co/v1/graphql
-// new mainnet: 
+// APIs
+const API_MAINNET = "https://api.zora.co/graphql"
+const API_RINKEBY = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
+
 
 const client = createClient({
-   url: APIURL
+   url: API_RINKEBY
 })
+
+console.log("client", client)
 
 export default function Gallery() {
    const [nftsMinted, setNFTsMinted] = useState();
@@ -65,20 +64,39 @@ export default function Gallery() {
       const callArray = [];
    
       for (let i = 0; i < numCalls; i++ ) {
-      let call = ` 
-      query {
-         Token(
-            where: 
-            {
-               address: {_eq: "${linkedNFTContract}" } 
+      let call = 
+
+      // rinkeby old indexer query
+      ` 
+         query {
+            Token(
+               where: 
+               {
+                  address: {_eq: "${linkedNFTContract}" } 
+               }
+               limit: 100
+               offset: ${i * 100}
+            ) {
+               tokenId
+               owner
             }
-            limit: 100
-            offset: ${i * 100}
-         ) {
-            tokenId
-            owner
          }
-      }`
+      `
+
+      // // mainnet new indexer query (currently set to crypto coven)
+      // ` 
+      // query {
+      //    tokens(where: {collectionAddresses: "0xF538e318B305280B681612e5347A242F90214Be8"}, pagination: {limit: 500}) {
+      //      nodes {
+      //        token {
+      //          tokenId
+      //          owner
+      //        }
+      //      }
+      //    }
+      //  }
+      // `
+
       callArray.push(call)
       } 
       return callArray
@@ -98,11 +116,20 @@ export default function Gallery() {
       })
    }
    
-   const concatPromiseResults = (multipleArrays) => {
+   const concatPromiseResultsRinkeby = (multipleArrays) => {
       const masterArray = []
       for (let i = 0; i < multipleArrays[0].length; i++ ) {
          for (let j = 0; j < multipleArrays[0][i].data.Token.length; j++ ) {
             masterArray.push(multipleArrays[0][i].data.Token[j])
+         }
+      } return masterArray
+   }
+
+   const concatPromiseResultsMainnet = (multipleArrays) => {
+      const masterArray = []
+      for (let i = 0; i < multipleArrays[0].length; i++ ) {
+         for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++ ) {
+            masterArray.push(multipleArrays[0][i].data.tokens.nodes[j].token)
          }
       } return masterArray
    }
@@ -126,14 +153,19 @@ export default function Gallery() {
          setLoading(true);
 
          const finalCallArray = generateCalls(numOfCallsRequired);
+         console.log("Finalcallarray", finalCallArray)
 
          const finalPromises = generateQueries(finalCallArray, numOfCallsRequired);
+         console.log("finalpromises", finalPromises)
 
          const promiseReturns = await runPromises(finalPromises);
+         console.log("promiseReturns", promiseReturns)
 
-         const promiseResults = concatPromiseResults(promiseReturns)
+         const promiseResults = concatPromiseResultsRinkeby(promiseReturns)
 
-         // console.log("promiseResults: ", promiseResults);
+         // const promiseResults = concatPromiseResultsMainnet(promiseReturns)
+
+         console.log("promiseResults: ", promiseResults);
 
          setRawData(promiseResults)
 

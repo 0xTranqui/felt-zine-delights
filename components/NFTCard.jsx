@@ -4,9 +4,13 @@ import { useAccount, useContractRead, useEnsName, etherscanBlockExplorers } from
 import { linkedNFTContract } from "../public/constants";
 import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
 
-const zdkStrategy = new Strategies.ZoraV2IndexerStrategy(
+const zdkStrategyRinkeby = new Strategies.ZoraV2IndexerStrategy(
    Networks.RINKEBY
 );
+
+const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
+   Networks.MAINNET
+)
 
 const NFTCard = ({ nfts }) => {
 
@@ -19,8 +23,8 @@ const NFTCard = ({ nfts }) => {
                return (
                   <div className=" flex flex-row flex-wrap justify-content">
                      <MediaConfiguration
-                        networkId="4"
-                        strategy={zdkStrategy}
+                        networkId="4" // update this for mainnet
+                        strategy={zdkStrategyRinkeby}
                         strings={{
                            CARD_OWNED_BY: "OWNED BY",
                            CARD_CREATED_BY: "CREATOR",

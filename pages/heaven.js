@@ -3,7 +3,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, etherscanBlockExplorers } from 'wagmi';
 import { ethers, BigNumber } from 'ethers'
-import * as ERC721_abi from "../contractABI/abi.json"
+
+// import * as ERC721_abi from "../contractABI/abi.json"
+import * as ERC721_abi from "../contractABI/abi2.json"
+
 import MintQuantity from "../components/MintQuantity";
 import { useAppContext } from '../context/appContext'
 import { linkedNFTContract } from "../public/constants";
@@ -11,6 +14,7 @@ import PostMintDialog from "../components/PostMintDialog";
 import { useEffect, useState } from "react";
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
+const addressList = require('../merkle-tree-gen/addressList');
 
 const heavenly = "#61CDFF"
 
@@ -52,29 +56,18 @@ const Heaven = () => {
    // checking current account for inclusion on allowlist
    const merkleMe = () => {
 
-      const whitelistAddresses = [
-         "0xA02555D67adB4C9DA3688363413550330d79F420",
-         "0x806164c929Ad3A6f4bd70c2370b3Ef36c64dEaa8",
-         "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-         "0x5e080d8b14c1da5936509c2c9ef0168a19304202"
-      ]
-
-      const leafNodes = whitelistAddresses.map(addr => keccak256(addr));
+      const leafNodes = addressList.map(addr => keccak256(addr));
       const leafNodesHashStrings = leafNodes.map(addr => addr.toString('hex'))
       const accountKeccakdHashString = keccak256(currentUserAddress).toString('hex')
-      const claimingAddress = keccak256(currentUserAddress);
       const isIncluded = leafNodesHashStrings.includes(accountKeccakdHashString);
       setAccountIncluded(isIncluded)
+      const claimingAddress = keccak256(currentUserAddress);
 
-      if (isIncluded) {
+      if (isIncluded) {         
          const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
-
          const hexProof = merkleTree.getHexProof(claimingAddress);
          setAccountHexProof(hexProof);
          console.log("what hex prrof got passed in", hexProof);
-   
-         const rootHash = merkleTree.getRoot();
-         const rootHashBytes32 = '0x' + merkleTree.getRoot().toString('hex')
       }
    }
 
@@ -91,7 +84,8 @@ const Heaven = () => {
       {
          args: [
             mintQuantity.queryValue,
-            accountHexProof
+            accountHexProof,
+            "Saint"
          ],
          overrides: {
             value: holderMintMsgValue 
@@ -123,7 +117,8 @@ const Heaven = () => {
       "publicMint",
       {
          args: [
-            mintQuantity.queryValue
+            mintQuantity.queryValue,
+            "Saint"
          ],
          overrides: {
             value: publicMintMsgValue  
