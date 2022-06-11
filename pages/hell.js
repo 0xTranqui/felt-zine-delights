@@ -104,7 +104,6 @@ const Hell = () => {
       }
    })        
 
-
    // public mint write call information
 
    const publicMintMsgValue = String(mintQuantity.queryValue * publicMintPrice);

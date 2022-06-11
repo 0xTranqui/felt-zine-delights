@@ -104,7 +104,6 @@ const Heaven = () => {
       }
    })        
 
-
    // public mint write call information
 
    const publicMintMsgValue = String(mintQuantity.queryValue * publicMintPrice);
@@ -154,7 +153,6 @@ const Heaven = () => {
       [currentUserAddress]
    )
 
-
    return (
       <div className='min-h-screen h-screen text-[#61CDFF]'>
          <Header />
@@ -170,11 +168,7 @@ const Heaven = () => {
                   <MintQuantity colorScheme={heavenly}/>
                   <button 
                      className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#61CDFF] hover:bg-[#61CDFF] hover:text-black"
-                     onClick={() => 
-                        {
-                           masterMint()
-                        }
-                     }   
+                     onClick={() => masterMint()}   
                   >
                      Mint
                   </button>
