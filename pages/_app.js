@@ -32,7 +32,9 @@ function MyApp({ Component, pageProps }) {
       <RainbowKitProvider
         chains={chains} 
         theme={darkTheme({
-          borderRadius: "none"
+          borderRadius: "none",
+          accentColor: "black",
+          accentColorForeground: "white"
       })}>
         <AppWrapper>
           <Component {...pageProps} />

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 @supports (font-variation-settings: normal) {
    body {
@@ -10,9 +11,34 @@
    }
 }
 
+@supports (font-variation-settings: normal) {
+   h3 {
+      font-family: "MedievalSharp", sans-serif
+   }
+}
+
+h3 {
+   font-family: "MedievalSharp"
+}
+
+@font-face {
+   font-family: "Gothiccc";
+   src: local(''), url('../public/fonts/bitmgothic/Bitmgothic.woff') format('woff');
+   font-weight: normal;
+   font-style: normal
+}
+
 * {
    box-sizing: border-box;
 }
+
+
+/* @layer base {
+   @font-face {
+      font-family: "MAJORPAPI";
+      src: font-url("/public/fonts/rm_albion.ttf") format('truetype');
+   }
+} */
 
 html, body {
    padding: 0;
