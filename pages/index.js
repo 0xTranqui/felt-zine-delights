@@ -4,7 +4,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAccount } from "wagmi";
 
-// import pastoralBackground from "../public/pastoralBackground.jpeg"
 
 const Home = () => {
 
@@ -14,7 +13,7 @@ const currentUserAddress = account ? account.address.toString() : ""
 console.log("currentuseraddress", currentUserAddress);
 
   return (
-    <div className="bg-[url('../public/pastoralBackground.jpeg')]  min-h-screen h-screen">
+    <div className="text-[#1a1b0a] bg-[url('../public/pastoralBackground.jpeg')]  min-h-screen h-screen">
       <Head>
         <meta name="description" content="a Felt Zine X tranqui.eth collab" />
         <meta name="og:title" content="Felt Zine Garden of Earthly Delights" />

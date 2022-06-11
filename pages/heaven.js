@@ -15,11 +15,10 @@ import { useEffect, useState } from "react";
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const addressList = require('../merkle-tree-gen/addressList');
-// import heavenlyDecision from "../public/heaven_decision.png"
 
 
 
-const heavenly = "#61CDFF"
+const heavenly = "#40bedc"
 
 const Heaven = () => {
    
@@ -157,59 +156,61 @@ const Heaven = () => {
    )
 
    return (
-      <div className="min-h-screen h-screen text-[#61CDFF]">
+      <div className=" bg-[url('../public/heaven_main_3.png')] bg-cover min-h-screen h-screen text-[#40bedc]">
          <Header />
          <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
             <div className="flex flex-col flex-wrap items-center">
-               <div className="text-6xl h-fit w-full flex flex-row justify-center " >
-                  One of the Lucky Ones
+               <div className={`text-center p-8 mt-5 sm:mt-0 bg-white border-[16px] border-double border-[${heavenly}] font-gothiccc text-7xl h-fit w-fit flex flex-row justify-center`} >
+                  One of the Blessed
                </div>
-               <div className="text-3xl mt-60 h-fit w-full flex flex-row justify-center " >
-                  Eternal Paradise Awaits
+               <div className={`mt-20 mb-10 p-8  border-[16px] border-[${heavenly}] border-double bg-white h-fit  `}>
+                  <div className="text-center text-4xl h-fit w-full flex flex-row justify-center " >
+                     Eternal Paradise Awaits
+                  </div>
+                  <div className="mt-8 w-full flex flex-row justify-center">
+                     <MintQuantity colorScheme={heavenly}/>
+                     <button 
+                        className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#40bedc] hover:bg-[#40bedc] hover:text-white"
+                        onClick={() => masterMint()}   
+                     >
+                        Mint
+                     </button>
+                  </div>
+                  <PostMintDialog 
+                     isHolder={accountIncluded}
+                     publicTxnLoadingStatus={publicMintWaitLoading}
+                     publicTxnSuccessStatus={publicMintStatus}
+                     publicTxnHashLink={publicMintWaitData}
+                     holderTxnLoadingStatus={holderMintWaitLoading}
+                     holderTxnSuccessStatus={holderMintStatus}
+                     holderTxnHashLink={holderMintWaitData}
+                     colorScheme={heavenly}
+                  />               
+                  { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
+                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">           
+                        <img
+                           className="mb-8 w-fit flex flex-row justify-self-center items-center"
+                           width="20px" 
+                           src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
+                        />
+                        <div className="w-full text-center">
+                           {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
+                        </div>
+                     </div>   
+                     ) : (                  
+                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">
+                        <div className="w-full text-center">
+                           {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
+                        </div>
+                     </div>                                          
+                  )}                         
+                  <Link href="/decisions">
+                     <a className="mt-5 text-xl flex flex-row justify-center text-center">
+                        ← BACK TO PURGATORY
+                     </a>
+                  </Link>
                </div>
-               <div className="mt-8 w-full flex flex-row justify-center">
-                  <MintQuantity colorScheme={heavenly}/>
-                  <button 
-                     className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#61CDFF] hover:bg-[#61CDFF] hover:text-black"
-                     onClick={() => masterMint()}   
-                  >
-                     Mint
-                  </button>
-               </div>
-               <PostMintDialog 
-                  isHolder={accountIncluded}
-                  publicTxnLoadingStatus={publicMintWaitLoading}
-                  publicTxnSuccessStatus={publicMintStatus}
-                  publicTxnHashLink={publicMintWaitData}
-                  holderTxnLoadingStatus={holderMintWaitLoading}
-                  holderTxnSuccessStatus={holderMintStatus}
-                  holderTxnHashLink={holderMintWaitData}
-                  colorScheme={heavenly}
-               />               
-               { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
-                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">           
-                     <img
-                        className="mb-8 w-fit flex flex-row justify-self-center items-center"
-                        width="20px" 
-                        src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
-                     />
-                     <div className="w-full text-center">
-                        {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
-                     </div>
-                  </div>   
-                  ) : (                  
-                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
-                     <div className="w-full text-center">
-                        {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
-                     </div>
-                  </div>                                          
-               )}       
             </div>
-            <Link href="/decisions">
-               <a className="absolute w-1/2 inset-x-1/4 bottom-10 text-center">
-                  ← BACK TO PURGATORY
-               </a>
-            </Link>
          </main>
          <Footer />
       </div>

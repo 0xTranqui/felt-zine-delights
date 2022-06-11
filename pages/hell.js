@@ -16,7 +16,7 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const addressList = require('../merkle-tree-gen/addressList');
 
-const hellish = "#FF3333"
+const hellish = "#c23d05"
 
 const Hell = () => {
    
@@ -154,59 +154,61 @@ const Hell = () => {
    )
 
    return (
-      <div className='min-h-screen h-screen text-[#FF3333]'>
+      <div className={` bg-[url("../public/hell_main_2.png")] bg-cover min-h-screen h-screen  text-[#c23d05]`}>
          <Header />
          <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
-            <div className="flex flex-col flex-wrap items-center">
-               <div className="text-6xl h-fit w-full flex flex-row justify-center " >
+            <div className="  flex flex-col flex-wrap items-center">
+               <div className={`text-center p-8 mt-5 sm:mt-0 bg-black border-[16px] border-double border-[${hellish}] font-gothiccc text-7xl h-fit w-fit flex flex-row justify-center`} >
                   One of the Damned
                </div>
-               <div className="text-3xl mt-60 h-fit w-full flex flex-row justify-center " >
-                  Eternal Suffering Awaits
-               </div>
-               <div className="mt-8 w-full flex flex-row justify-center">
-                  <MintQuantity colorScheme={hellish} />
-                  <button 
-                     className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#FF3333] hover:bg-[#FF3333] hover:text-black"
-                     onClick={() => masterMint()}   
-                  >
-                     Mint
-                  </button>
-               </div>
-               <PostMintDialog               
-                  isHolder={accountIncluded}
-                  publicTxnLoadingStatus={publicMintWaitLoading}
-                  publicTxnSuccessStatus={publicMintStatus}
-                  publicTxnHashLink={publicMintWaitData}
-                  holderTxnLoadingStatus={holderMintWaitLoading}
-                  holderTxnSuccessStatus={holderMintStatus}
-                  holderTxnHashLink={holderMintWaitData}
-                  colorScheme={hellish}
-               />
-               { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
-                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">                    
-                     <img
-                        className="mb-8 w-fit flex flex-row justify-self-center items-center"
-                        width="20px" 
-                        src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
-                     />
-                     <div className="w-full text-center">
+               <div className={`mt-20 mb-10 p-8  border-[16px] border-[${hellish}] border-double bg-black h-fit  `} >
+                  <div className="text-center text-4xl h-fit w-full flex flex-row justify-center " >
+                     Eternal Suffering Awaits
+                  </div>
+                  <div className="mt-8 w-full flex flex-row justify-center">
+                     <MintQuantity colorScheme={hellish} />
+                     <button 
+                        className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#c23d05] hover:bg-[#c23d05] hover:text-black"
+                        onClick={() => masterMint()}   
+                     >
+                        Mint
+                     </button>
+                  </div>
+                  <PostMintDialog               
+                     isHolder={accountIncluded}
+                     publicTxnLoadingStatus={publicMintWaitLoading}
+                     publicTxnSuccessStatus={publicMintStatus}
+                     publicTxnHashLink={publicMintWaitData}
+                     holderTxnLoadingStatus={holderMintWaitLoading}
+                     holderTxnSuccessStatus={holderMintStatus}
+                     holderTxnHashLink={holderMintWaitData}
+                     colorScheme={hellish}
+                  />
+                  { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
+                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">                    
+                        <img
+                           className="mb-8 w-fit flex flex-row justify-self-center items-center"
+                           width="20px" 
+                           src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
+                        />
+                        <div className="w-full text-center">
+                           {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
+                        </div>
+                     </div>   
+                     ) : (                  
+                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">
+                        <div className="w-full text-center">
                         {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
-                     </div>
-                  </div>   
-                  ) : (                  
-                  <div className="text-lg mt-10 flex flex-row flex-wrap justify-center ">
-                     <div className="w-full text-center">
-                     {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
-                     </div>
-                  </div>                                          
-               )}         
-            </div> 
-            <Link href="/decisions">
-               <a className="absolute w-1/2 inset-x-1/4 bottom-10 text-center">
-                  ← BACK TO PURGATORY
-               </a>
-            </Link>
+                        </div>
+                     </div>                                          
+                  )}
+                  <Link href="/decisions">
+                     <a className="mt-5 text-xl flex flex-row justify-center text-center">
+                        ← BACK TO PURGATORY
+                     </a>
+                  </Link>         
+               </div> 
+            </div>
          </main>
          <Footer />
       </div>

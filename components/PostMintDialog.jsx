@@ -126,12 +126,12 @@ export default function PostMintDialog({ colorScheme, isHolder, publicTxnLoading
       ) : (
          <>
          {holderTxnLoadingStatus == false && holderIsRendered == "success" ? (    
-            <div> 
+            <div className="flex flex-row justify-center"> 
                <button
                   type="button"
                   onClick={openModal}
                   className={`border-[${colorScheme}] hover:bg-[${colorScheme}]
-                  mt-10 w-full sm:text-lg relative flex flex-row p-2 pl-3 bg-black border-2 border-solid  hover:text-black`}
+                  text-center mt-10 w-fit sm:text-lg relative flex flex-row justify-items-center p-2 pl-3 bg-black border-2 border-solid  hover:text-black`}
                >
                   YOUR MINT INFO
                </button>        
