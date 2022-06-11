@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAccount } from "wagmi";
 
-import pastoralBackground from "../public/pastoralBackground.jpeg"
+// import pastoralBackground from "../public/pastoralBackground.jpeg"
 
 const Home = () => {
 
@@ -52,7 +52,7 @@ console.log("currentuseraddress", currentUserAddress);
                 D I S A B L E D
               </button>
               ) : (
-              <button disabled={false}  className="rounded-3xl font-bold text-2xl mt-5 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid  border-[#1a1b0a] bg-[#1a1b0a] text-[#93814f] hover:text-[#b5572b]" >
+              <button   className="rounded-3xl font-bold text-2xl mt-5 py-3 p-3 w-fit h-fit  flex flex-row justify-center justify-items-center border-[4px] border-solid  border-[#1a1b0a] bg-[#1a1b0a] text-[#93814f] hover:text-[#b5572b]" >
                 E N T E R
               </button>
               )}        

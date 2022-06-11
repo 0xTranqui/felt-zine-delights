@@ -15,6 +15,9 @@ import { useEffect, useState } from "react";
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const addressList = require('../merkle-tree-gen/addressList');
+// import heavenlyDecision from "../public/heaven_decision.png"
+
+
 
 const heavenly = "#61CDFF"
 
@@ -154,7 +157,7 @@ const Heaven = () => {
    )
 
    return (
-      <div className='min-h-screen h-screen text-[#61CDFF]'>
+      <div className="min-h-screen h-screen text-[#61CDFF]">
          <Header />
          <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
             <div className="flex flex-col flex-wrap items-center">
