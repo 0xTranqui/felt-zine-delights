@@ -28,7 +28,7 @@ export default function MintQuantity({ colorScheme }) {
 
                { colorScheme === "#c23d05" ? (
                <Listbox.Button className={`border-[${colorScheme}] hover:bg-[${colorScheme}] focus-visible:ring-offset-[${colorScheme}]
-               w-fit h-full hover:text-black cursor-pointer relative border-solid  border-2 bg-transparent py- pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-xl`}
+               w-fit h-full hover:text-black cursor-pointer relative border-solid  border-2 bg-transparent py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-xl`}
                >
                
                
@@ -42,7 +42,7 @@ export default function MintQuantity({ colorScheme }) {
                </Listbox.Button>
                ) : (
                <Listbox.Button className={`border-[${colorScheme}] hover:bg-[${colorScheme}] focus-visible:ring-offset-[${colorScheme}]
-               w-fit h-full hover:text-white cursor-pointer relative border-solid  border-2 bg-transparent py- pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-xl`}
+               w-fit h-full hover:text-white cursor-pointer relative border-solid  border-2 bg-transparent py- pl-3 pr-10 text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-xl`}
                >
                
                
@@ -63,7 +63,7 @@ export default function MintQuantity({ colorScheme }) {
                >
 
                   { colorScheme === "#c23d05" ? (
-                  <Listbox.Options className="absolute z-[11] mt-1 max-h-60 w-full  overflow-auto  bg-black text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute z-[11] mt-1 max-h-60 w-full  overflow-auto  bg-black text-base  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                      {sortOptions.map((option, optionIdx) => (
                         <Listbox.Option
                         key={optionIdx}
@@ -94,7 +94,7 @@ export default function MintQuantity({ colorScheme }) {
                      ))}
                   </Listbox.Options>
                   ) : (
-                  <Listbox.Options className="absolute z-[11] mt-1 max-h-60 w-full  overflow-auto  bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute z-[11] mt-1 max-h-60 w-full  overflow-auto  bg-white text-base  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                      {sortOptions.map((option, optionIdx) => (
                         <Listbox.Option
                         key={optionIdx}

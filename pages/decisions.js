@@ -12,14 +12,14 @@ const Decisions = () => {
             </div>
             <div className="bg-[url('../public/heaven_decision.png')] bg-cover  h-full   flex flex-col flex-wrap justify-center items-center">
                <Link href="/heaven">
-                  <button className="bg-white border-[#40bedc] text-[#8DC5DA] hover:text-[#40bedc] border-solid border-8 rounded-3xl text-4xl mt-8 py-3 p-3 w-3/12 h-fit  flex flex-row justify-center justify-items-center " >
+                  <button className="bg-white border-[#40bedc] text-[#40bedc] hover:text-white hover:bg-[#40bedc] border-solid border-8 rounded-3xl text-4xl mt-8 py-3 p-3 w-3/12 h-fit  flex flex-row justify-center justify-items-center " >
                      Heaven
                   </button>
                </Link>
             </div>
             <div className="bg-[url('../public/hell_decision.png')] bg-cover text-black h-full  flex flex-col flex-wrap justify-center items-center">
                <Link href="/hell">
-                  <button className="bg-black border-[#c23d05] text-[#B1522A] hover:text-[#c23d05] border-solid border-8 rounded-3xl  text-4xl mt-8 py-3 p-3 w-3/12 h-fit  flex flex-row justify-center justify-items-center " >
+                  <button className="bg-black border-[#c23d05] text-[#c23d05] hover:text-black hover:bg-[#c23d05] border-solid border-8 rounded-3xl  text-4xl mt-8 py-3 p-3 w-3/12 h-fit  flex flex-row justify-center justify-items-center " >
                      Hell
                   </button>
                </Link>
