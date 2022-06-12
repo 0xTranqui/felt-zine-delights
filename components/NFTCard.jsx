@@ -40,13 +40,14 @@ const NFTCard = ({ nfts }) => {
                                  color: "white"
                               },
                               headerFont: {
-                                 color: "orange"
+                                 color: "white"
                               },
                               linkColor: {
                                  color: "#e97d39"
                               },
-                              borderStyle: "6px #202716 solid",
-                              placeHolderColor: "black",
+                              borderStyle: "5px #202716 solid",
+                              defaultBorderRadius: "0px",
+                              placeHolderColor: "#202716",
                               useEnsResolution: true,                           
                            },                        
                         }}
