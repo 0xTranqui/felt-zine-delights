@@ -53,7 +53,7 @@ const NFTCard = ({ nfts }) => {
                         }}
                      >
                         <NFTPreview
-                           
+                           href={`https://zora.co/collections/0x7e6663E45Ae5689b313e6498D22B041f4283c88A/${nft.tokenId}`}
                            contract={linkedNFTContract}
                            id={nft.tokenId}
                            showBids={false}

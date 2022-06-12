@@ -160,7 +160,7 @@ const Hell = () => {
          <Header />
          <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
             <div className="  flex flex-col flex-wrap items-center">
-               <div className={`text-center p-8 mt-5 sm:mt-0 bg-black border-[16px] border-double border-[${hellish}] font-gothiccc text-7xl h-fit w-fit flex flex-row justify-center`} >
+               <div className={`text-center p-8 mt-5 sm:mt-0 bg-black border-[16px] border-double border-[${hellish}] font-gothiccc text-5xl sm:text-7xl h-fit w-fit flex flex-row justify-center`} >
                   One of the Damned
                </div>
                <div className={`mt-10 mb-10 p-8  border-[16px] border-[${hellish}] border-double bg-black h-fit  `} >
@@ -194,13 +194,25 @@ const Hell = () => {
                            src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
                         />
                         <div className="w-full text-center">
+                           FZ Holders Mint Price: 0.02 Ξ
+                        </div>
+                        <div className="w-full text-center">
+                           Public Mint Price: 0.04 Ξ
+                        </div>   
+                        <div className="w-full text-center">
                            {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
                         </div>
                      </div>   
                      ) : (                  
                      <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">
                         <div className="w-full text-center">
-                        {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
+                           FZ Holders Mint Price: 0.02 Ξ
+                        </div>
+                        <div className="w-full text-center">
+                           Public Mint Price: 0.04 Ξ
+                        </div>                           
+                        <div className="w-full text-center">
+                           {`${MAX_SUPPLY - totalSupply}` + " / " + `${MAX_SUPPLY}` + " Pieces Remaining"}
                         </div>
                      </div>                                          
                   )}
