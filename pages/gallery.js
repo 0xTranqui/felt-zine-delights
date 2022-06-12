@@ -196,7 +196,7 @@ export default function Gallery() {
 
          <Header />
 
-         <div className=" h-fit flex flex-row justify-center font-gothiccc p-8 border-double border-[16px] border-[#e97d39] bg-[#726e48] text-[#e97d39] text-4xl sm:text-7xl mt-20 mb-5 text-center">
+         <div className=" h-fit flex flex-row justify-center font-gothiccc p-8 border-double border-[16px] border-[#e97d39] bg-[#726e48] text-[#e97d39] text-5xl sm:text-7xl mt-20 mb-5 text-center">
             G A L L E R Y
          </div>
 
@@ -220,6 +220,7 @@ export default function Gallery() {
             </div>
          </Switch.Group>
 
+
          <div className="flex flex-row flex-wrap justify-center">
             {
                loading ? "loading . . . " : 
@@ -232,62 +233,6 @@ export default function Gallery() {
                </>               
             }
          </div>
-
-         {/* <div className="mt-10 mb-5 hover:text-red-500">
-            <Link href="/">
-               <a>
-                  _ a _ f e l t _ z i n e _ p r o d u c t i o n _ 
-               </a>
-            </Link>
-         </div> */}
-         {/* <Footer /> */}
-
       </div>
    )
 }
-
-
-
-
-
-         {/* {loading ? "loading . . . " :
-         <MediaConfiguration
-            networkId="4"
-            strategy={zdkStrategy}
-            // strings={{
-            //    CARD_OWNED_BY: "OWNED BY",
-            //    CARD_CREATED_BY: "CREATOR",
-            //    COLLECTED: "Collected byyy"
-               
-            // }}
-            style={{
-               theme: {
-                  previewCard: {
-                     background: "black",                   
-                  },
-                  bodyFont: {
-                     color: "red"
-                  },
-                  titleFont: {
-                     color: "white"
-                  },
-                  headerFont: {
-                     color: "orange"
-                  },
-                  linkColor: {
-                     color: "blue"
-                  },
-                  borderStyle: "4px red solid",
-                  placeHolderColor: "black",
-               },                        
-            }}
-         >
-            <NFTPreview
-
-               contract={linkedNFTContract}
-               id={"2"}
-               showBids={false}
-               showPerpetual={false}
-            />
-         </MediaConfiguration>
-         } */}
