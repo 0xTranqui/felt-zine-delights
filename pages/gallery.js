@@ -196,7 +196,7 @@ export default function Gallery() {
 
          <Header />
 
-         <div className=" h-fit flex flex-row justify-center font-gothiccc p-8 border-double border-[16px] border-[#e97d39] bg-[#726e48] text-[#e97d39] text-5xl sm:text-7xl mt-20 mb-5 text-center">
+         <div className=" h-fit flex flex-row justify-center font-gothiccc p-6 sm:p-8 border-double border-[16px] border-[#e97d39] bg-[#726e48] text-[#e97d39] text-5xl sm:text-7xl mt-20 mb-5 text-center">
             G A L L E R Y
          </div>
 
