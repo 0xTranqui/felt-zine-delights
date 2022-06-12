@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, etherscanBlockExplorers } from 'wagmi';
+import { useAccount, useContract, useProvider, useContractWrite, useWaitForTransaction, useContractRead, etherscanBlockExplorers } from 'wagmi';
 import { ethers, BigNumber } from 'ethers'
 
 // import * as ERC721_abi from "../contractABI/abi.json"
-import * as ERC721_abi from "../contractABI/abi2.json"
+// import * as ERC721_abi from "../contractABI/abi2.json"
+// import * as ERC721_abi from "../contractABI/abi3.json"
+import * as ERC721_abi from "../contractABI/abi_mainnet.json"
 
 import MintQuantity from "../components/MintQuantity";
 import { useAppContext } from '../context/appContext'
@@ -15,8 +17,6 @@ import { useEffect, useState } from "react";
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const addressList = require('../merkle-tree-gen/addressList');
-
-
 
 const heavenly = "#40bedc"
 
@@ -51,7 +51,7 @@ const Heaven = () => {
    )
    
    const totalSupply = totalSupplyData ? totalSupplyData.toString() : "loading"
-   const MAX_SUPPLY = "500"
+   const MAX_SUPPLY = "750"
    const publicMintPrice = "40000000000000000" // 0.04 eth
    const holderMintPrice = "20000000000000000" // 0.02 eth
 
@@ -156,14 +156,14 @@ const Heaven = () => {
    )
 
    return (
-      <div className=" bg-[url('../public/heaven_main_3.png')] bg-cover min-h-screen h-screen text-[#40bedc]">
+      <div className=" bg-[url('../public/assets/heaven-b-cropped.png')] bg-cover min-h-screen h-screen text-[#40bedc]">
          <Header />
          <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
             <div className="flex flex-col flex-wrap items-center">
                <div className={`text-center p-8 mt-5 sm:mt-0 bg-white border-[16px] border-double border-[${heavenly}] font-gothiccc text-7xl h-fit w-fit flex flex-row justify-center`} >
                   One of the Blessed
                </div>
-               <div className={`mt-20 mb-10 p-8  border-[16px] border-[${heavenly}] border-double bg-white h-fit  `}>
+               <div className={`mt-10 mb-10 p-8  border-[16px] border-[${heavenly}] border-double bg-white h-fit  `}>
                   <div className="text-center text-4xl h-fit w-full flex flex-row justify-center " >
                      Eternal Paradise Awaits
                   </div>
@@ -189,7 +189,7 @@ const Heaven = () => {
                   { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
                      <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">           
                         <img
-                           className="mb-8 w-fit flex flex-row justify-self-center items-center"
+                           className="bg-[#40bedc] p-1 rounded-3xl mb-8 w-fit flex flex-row justify-self-center items-center"
                            width="20px" 
                            src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
                         />

@@ -4,12 +4,13 @@ import { useAccount, useContractRead, useEnsName, etherscanBlockExplorers } from
 import { linkedNFTContract } from "../public/constants";
 import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
 
-const zdkStrategyRinkeby = new Strategies.ZoraV2IndexerStrategy(
-   Networks.RINKEBY
-);
+// const zdkStrategyRinkeby = new Strategies.ZoraV2IndexerStrategy(
+//    Networks.RINKEBY
+// );
 
 const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
-   Networks.MAINNET
+   Networks.MAINNET,
+   // "https://api.zora.co/graphql"
 )
 
 const NFTCard = ({ nfts }) => {
@@ -21,10 +22,10 @@ const NFTCard = ({ nfts }) => {
             ?
             nfts.map((nft, index) => {
                return (
-                  <div className=" flex flex-row flex-wrap justify-content">
+                  <div key={nft.tokenId} className="flex flex-row flex-wrap justify-content">
                      <MediaConfiguration
-                        networkId="4" // update this for mainnet
-                        strategy={zdkStrategyRinkeby}
+                        networkId="1"
+                        strategy={zdkStrategyMainnet}
                         strings={{
                            CARD_OWNED_BY: "OWNED BY",
                            CARD_CREATED_BY: "CREATOR",
@@ -62,6 +63,7 @@ const NFTCard = ({ nfts }) => {
                            id={nft.tokenId}
                            showBids={false}
                            showPerpetual={false}
+                           
                         />
                      </MediaConfiguration>
                   </div>

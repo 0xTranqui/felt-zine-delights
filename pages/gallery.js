@@ -20,7 +20,7 @@ const API_RINKEBY = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
 
 
 const client = createClient({
-   url: API_RINKEBY
+   url: API_MAINNET
 })
 
 console.log("client", client)
@@ -59,7 +59,6 @@ export default function Gallery() {
    const totalSupply = supplyData ? BigNumber.from(supplyData).toString() : "loading"
    const numOfCallsRequired = Math.ceil(totalSupply / 100)
 
-
    const generateCalls = (numCalls) => {
       const callArray = [];
    
@@ -67,35 +66,35 @@ export default function Gallery() {
       let call = 
 
       // rinkeby old indexer query
+      // ` 
+      //    query {
+      //       Token(
+      //          where: 
+      //          {
+      //             address: {_eq: "${linkedNFTContract}" } 
+      //          }
+      //          limit: 100
+      //          offset: ${i * 100}
+      //       ) {
+      //          tokenId
+      //          owner
+      //       }
+      //    }
+      // `
+
+      // // mainnet new indexer query
       ` 
          query {
-            Token(
-               where: 
-               {
-                  address: {_eq: "${linkedNFTContract}" } 
+            tokens(where: {collectionAddresses: "0x7e6663E45Ae5689b313e6498D22B041f4283c88A"}, pagination: {limit: 500}) {
+            nodes {
+               token {
+                  tokenId
+                  owner
                }
-               limit: 100
-               offset: ${i * 100}
-            ) {
-               tokenId
-               owner
+            }
             }
          }
       `
-
-      // // mainnet new indexer query (currently set to crypto coven)
-      // ` 
-      // query {
-      //    tokens(where: {collectionAddresses: "0xF538e318B305280B681612e5347A242F90214Be8"}, pagination: {limit: 500}) {
-      //      nodes {
-      //        token {
-      //          tokenId
-      //          owner
-      //        }
-      //      }
-      //    }
-      //  }
-      // `
 
       callArray.push(call)
       } 
@@ -161,15 +160,17 @@ export default function Gallery() {
          const promiseReturns = await runPromises(finalPromises);
          console.log("promiseReturns", promiseReturns)
 
-         const promiseResults = concatPromiseResultsRinkeby(promiseReturns)
+         // const promiseResults = concatPromiseResultsRinkeby(promiseReturns)
 
-         // const promiseResults = concatPromiseResultsMainnet(promiseReturns)
+         const promiseResults = concatPromiseResultsMainnet(promiseReturns)
 
          console.log("promiseResults: ", promiseResults);
 
          setRawData(promiseResults)
 
          ownerFilter(promiseResults)
+
+         console.log("rawData", rawData)
 
       } catch(error) {
          console.error(error.message)

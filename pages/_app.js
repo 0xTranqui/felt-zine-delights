@@ -8,7 +8,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { AppWrapper } from '../context/appContext.js';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.rinkeby],
+  [chain.mainnet],
   [
     alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
     // publicProvider()
