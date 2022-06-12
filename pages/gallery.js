@@ -57,6 +57,7 @@ export default function Gallery() {
    )   
    
    const totalSupply = supplyData ? BigNumber.from(supplyData).toString() : "loading"
+   console.log("totalSuppy", totalSupply)
    const numOfCallsRequired = Math.ceil(totalSupply / 100)
 
    const generateCalls = (numCalls) => {
@@ -86,12 +87,16 @@ export default function Gallery() {
       ` 
          query {
             tokens(where: {collectionAddresses: "0x7e6663E45Ae5689b313e6498D22B041f4283c88A"}, pagination: {limit: 500}) {
-            nodes {
-               token {
-                  tokenId
-                  owner
+               nodes {
+                  token {
+                     tokenId
+                     owner
+                  }
                }
-            }
+               pageInfo {
+                  hasNextPage
+                  endCursor
+               }
             }
          }
       `
