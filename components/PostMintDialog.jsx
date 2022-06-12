@@ -127,14 +127,25 @@ export default function PostMintDialog({ colorScheme, isHolder, publicTxnLoading
          <>
          {holderTxnLoadingStatus == false && holderIsRendered == "success" ? (    
             <div className="flex flex-row justify-center"> 
+               { colorScheme === "#c23d05" ? (
                <button
                   type="button"
                   onClick={openModal}
                   className={`border-[${colorScheme}] hover:bg-[${colorScheme}]
-                  text-center mt-10 w-fit sm:text-lg relative flex flex-row justify-items-center p-2 pl-3 bg-black border-2 border-solid  hover:text-black`}
+                  text-center mt-10 w-fit sm:text-lg relative flex flex-row justify-items-center p-2 pl-3 bg-transparent border-2 border-solid  hover:text-black`}
                >
                   YOUR MINT INFO
-               </button>        
+               </button>
+               ) : (
+                  <button
+                  type="button"
+                  onClick={openModal}
+                  className={`border-[${colorScheme}] hover:bg-[${colorScheme}]
+                  text-center mt-10 w-fit sm:text-lg relative flex flex-row justify-items-center p-2 pl-3 bg-transparent border-2 border-solid  hover:text-white`}
+               >
+                  YOUR MINT INFO
+               </button>
+               )}
             <Transition appear show={isOpen} as={Fragment}>
                <Dialog as="div" className="relative z-[60]" onClose={closeModal}>
                   <Transition.Child
