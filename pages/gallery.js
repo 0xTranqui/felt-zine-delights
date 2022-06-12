@@ -34,7 +34,7 @@ export default function Gallery() {
    
    // hook to get the current account of user
    const { data: account, isError: accountError, isLoading: accountLoading } = useAccount(); 
-   const currentUserAddress = account ? account.address : ""
+   const currentUserAddress = account ? account.address.toLowerCase() : ""
 
    // read call to get current totalSupply
    const { data: supplyData, isError: supplyError, isLoading: supplyLoading } = useContractRead(
@@ -144,7 +144,6 @@ export default function Gallery() {
       setUserData(filteredArray)
    }
 
-
    const fetchData = async () => {
       console.log("fetching data")
 
@@ -193,21 +192,21 @@ export default function Gallery() {
    )
 
    return (
-      <div className="flex flex-row flex-wrap justify-center">
+      <div className=" bg-[url('../public/assets/gallery_bg_cropped.png')] bg-repeat flex flex-row flex-wrap justify-center">
 
          <Header />
 
-         <div className="text-6xl mt-20 mb-5 text-center">
-            DELIGHTFUL GALLERY
+         <div className=" flex flex-row justify-center font-gothiccc p-8 border-double border-[16px] border-[#e97d39] bg-[#726e48] text-[#e97d39] text-4xl sm:text-7xl mt-20 mb-5 text-center">
+            G A L L E R Y
          </div>
 
          <Switch.Group>
             <div className="mb-5 w-full flex flex-row justify-center items-center">
-               <Switch.Label className="mr-4">FULL COLLECTION</Switch.Label>
+               <Switch.Label className="mr-4 font-bold">FULL COLLECTION</Switch.Label>
                <Switch
                   checked={enabled}
                   onChange={setEnabled}
-                  className={`${enabled ? `bg-[${heavenly}]` : `bg-[${hellish}]`}
+                  className={`${enabled ? `bg-[#726e48]` : `bg-[#e97d39]`}
                      relative inline-flex h-[30px] w-[66px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
                   <span className="sr-only">Use setting</span>
@@ -217,7 +216,7 @@ export default function Gallery() {
                         pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                   />
                </Switch>
-               <Switch.Label className="ml-4">MY COLLECTION</Switch.Label>
+               <Switch.Label className="ml-4 font-bold">MY COLLECTION</Switch.Label>
             </div>
          </Switch.Group>
 
@@ -234,13 +233,14 @@ export default function Gallery() {
             }
          </div>
 
-         <div className="mt-10 mb-5 hover:text-red-500">
+         {/* <div className="mt-10 mb-5 hover:text-red-500">
             <Link href="/">
                <a>
                   _ a _ f e l t _ z i n e _ p r o d u c t i o n _ 
                </a>
             </Link>
-         </div>
+         </div> */}
+         {/* <Footer /> */}
 
       </div>
    )

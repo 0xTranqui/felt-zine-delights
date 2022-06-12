@@ -4,13 +4,8 @@ import { useAccount, useContractRead, useEnsName, etherscanBlockExplorers } from
 import { linkedNFTContract } from "../public/constants";
 import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
 
-// const zdkStrategyRinkeby = new Strategies.ZoraV2IndexerStrategy(
-//    Networks.RINKEBY
-// );
-
 const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
-   Networks.MAINNET,
-   // "https://api.zora.co/graphql"
+   Networks.MAINNET
 )
 
 const NFTCard = ({ nfts }) => {
@@ -25,20 +20,21 @@ const NFTCard = ({ nfts }) => {
                   <div key={nft.tokenId} className="flex flex-row flex-wrap justify-content">
                      <MediaConfiguration
                         networkId="1"
+                        
                         strategy={zdkStrategyMainnet}
                         strings={{
                            CARD_OWNED_BY: "OWNED BY",
-                           CARD_CREATED_BY: "CREATOR",
+                           CARD_CREATED_BY: "MINTED BY",
                            COLLECTED: "Collected byyy"
                            
                         }}
                         style={{
                            theme: {
                               previewCard: {
-                                 background: "black",                   
+                                 background: "#726e48",                
                               },
                               bodyFont: {
-                                 color: "red"
+                                 color: "white"
                               },
                               titleFont: {
                                  color: "white"
@@ -47,22 +43,21 @@ const NFTCard = ({ nfts }) => {
                                  color: "orange"
                               },
                               linkColor: {
-                                 color: "blue"
+                                 color: "#e97d39"
                               },
-                              borderStyle: "4px red solid",
+                              borderStyle: "6px #202716 solid",
                               placeHolderColor: "black",
-                              useEnsResolution: true,
-                              showCreator: false,
-                              showOwner: true,
-                              useCollectionTag: true
+                              useEnsResolution: true,                           
                            },                        
                         }}
                      >
                         <NFTPreview
+                           
                            contract={linkedNFTContract}
                            id={nft.tokenId}
                            showBids={false}
                            showPerpetual={false}
+
                            
                         />
                      </MediaConfiguration>

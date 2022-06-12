@@ -50,7 +50,7 @@ useEffect(() => {
       <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
         <div className="mt-0 sm:mt-10 flex flex-col flex-wrap items-center">
           <div className=" text-center mb-10 py-8 px-4 border-[20px] border-double border-[#1a1b0a] bg-[#93814f] text-[#1a1b0a] font-bold font-gothiccc text-7xl h-fit w-fit flex flex-row justify-center items-center" >
-            Garden of Felt Zine Delights
+            Gardens of Felt Zine Delights
           </div>
           <div className=" py-8 border-[16px] border-double border-[#1a1b0a] mt-5 sm:mt-20 bg-[#93814f] text-[#1a1b0a] h-fit w-7/12 flex flex-row flex-wrap justify-center ">
             <div className="mx-2 sm:mx-0 text-center font-gothiccc font-bold text-5xl w-fit flex flex-row justify-center " >
