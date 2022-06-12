@@ -3,12 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAccount, useContractWrite, useWaitForTransaction, useContractRead, etherscanBlockExplorers } from 'wagmi';
 import { ethers, BigNumber } from 'ethers'
-
-// import * as ERC721_abi from "../contractABI/abi.json"
-// import * as ERC721_abi from "../contractABI/abi2.json"
-// import * as ERC721_abi from "../contractABI/abi3.json"
 import * as ERC721_abi from "../contractABI/abi_mainnet.json"
-
 import MintQuantity from "../components/MintQuantity";
 import { useAppContext } from '../context/appContext'
 import { linkedNFTContract } from "../public/constants";

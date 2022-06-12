@@ -192,7 +192,7 @@ export default function Gallery() {
    )
 
    return (
-      <div className=" min-h-screen bg-[url('../public/assets/gallery_bg_cropped.png')] bg-repeat flex flex-row flex-wrap justify-center">
+      <div className=" min-h-screen bg-[url('../public/assets/gallery_bg_cropped_smaller.png')] bg-repeat flex flex-row flex-wrap justify-center">
 
          <Header />
 

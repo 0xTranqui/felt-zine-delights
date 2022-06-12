@@ -1,8 +1,7 @@
 
 import { NFTPreview, MediaConfiguration } from "@zoralabs/nft-components";
-import { useAccount, useContractRead, useEnsName, etherscanBlockExplorers } from "wagmi";
 import { linkedNFTContract } from "../public/constants";
-import { Networks, NFTFetchConfiguration, Strategies, useNFT, useNFTMetadata, MediaFetchAgent } from "@zoralabs/nft-hooks"
+import { Networks, Strategies } from "@zoralabs/nft-hooks"
 
 const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
    Networks.MAINNET
@@ -19,14 +18,11 @@ const NFTCard = ({ nfts }) => {
                return (
                   <div key={nft.tokenId} className="flex flex-row flex-wrap justify-content">
                      <MediaConfiguration
-                        networkId="1"
-                        
+                        networkId="1"                        
                         strategy={zdkStrategyMainnet}
                         strings={{
                            CARD_OWNED_BY: "OWNED BY",
-                           CARD_CREATED_BY: "MINTED BY",
-                           COLLECTED: "Collected byyy"
-                           
+                           CARD_CREATED_BY: "MINTED BY",                           
                         }}
                         style={{
                            theme: {
@@ -57,9 +53,7 @@ const NFTCard = ({ nfts }) => {
                            contract={linkedNFTContract}
                            id={nft.tokenId}
                            showBids={false}
-                           showPerpetual={false}
-
-                           
+                           showPerpetual={false}                           
                         />
                      </MediaConfiguration>
                   </div>
