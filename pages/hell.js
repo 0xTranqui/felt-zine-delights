@@ -158,7 +158,7 @@ const Hell = () => {
                <div className={`text-center p-8 mt-5 sm:mt-0 bg-black border-[16px] border-double border-[${hellish}] font-gothiccc text-5xl sm:text-7xl h-fit w-fit flex flex-row justify-center`} >
                   One of the Damned
                </div>
-               <div className={`mt-10 mb-10 p-8  border-[16px] border-[${hellish}] border-double bg-black h-fit  `} >
+               <div className={`mt-10 mb-10 p-8  border-[16px] border-[${hellish}] border-double bg-black min-w-fit sm:min-w-min w-8/12 xl:w-6/12 h-fit `} >
                   <div className="text-center text-4xl h-fit w-full flex flex-row justify-center " >
                      Eternal Suffering Awaits
                   </div>
@@ -182,7 +182,7 @@ const Hell = () => {
                      colorScheme={hellish}
                   />
                   { publicMintWaitLoading == true || holderMintWaitLoading == true ? (
-                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">                    
+                     <div className="text-xl sm:text-2xl mt-10 flex flex-row flex-wrap justify-center ">                    
                         <img
                            className="bg-[#c23d05] p-1 rounded-3xl mb-8 w-fit flex flex-row justify-self-center items-center"
                            width="20px" 
@@ -199,7 +199,7 @@ const Hell = () => {
                         </div>
                      </div>   
                      ) : (                  
-                     <div className="text-2xl mt-10 flex flex-row flex-wrap justify-center ">
+                     <div className="text-xl sm:text-2xl mt-10 flex flex-row flex-wrap justify-center ">
                         <div className="w-full text-center">
                            FZ Holders Mint Price: 0.02 Ξ
                         </div>
