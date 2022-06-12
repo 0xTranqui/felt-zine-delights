@@ -31,7 +31,7 @@ useEffect(() => {
       <Header />
       <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
         <div className="mt-0 sm:mt-10 flex flex-col flex-wrap items-center">
-          <div className=" text-center mb-10 py-8 px-4 border-[20px] border-double border-[#1a1b0a] bg-[#93814f] text-[#1a1b0a] font-bold font-gothiccc text-5xl sm:text-7xl h-fit w-fit flex flex-row justify-center items-center" >
+          <div className=" text-center mb-10 py-8 px-4 border-[20px] border-double border-[#1a1b0a] bg-[#93814f] text-[#1a1b0a] font-bold font-gothiccc text-5xl sm:text-7xl h-fit  w-9/12 lg:w-fit flex flex-row justify-center items-center" >
             Gardens of Felt Zine Delights
           </div>
           <div className=" py-8 border-[16px] border-double border-[#1a1b0a] mt-5 sm:mt-20 bg-[#93814f] text-[#1a1b0a] h-fit w-7/12 flex flex-row flex-wrap justify-center ">

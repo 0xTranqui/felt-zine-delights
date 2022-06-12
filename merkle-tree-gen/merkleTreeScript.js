@@ -12,16 +12,12 @@ const rootHashBytes32 = '0x' + merkleTree.getRoot().toString('hex')
 
 console.log("rootHash_0x:", rootHashBytes32)
 
-// final root hash = 0x8132893218fc041ac039be48d18ff3dbb964a7d21ed845674ffbcd5d3d1fca77
-
+// final root hash = 0xa6f5476e67c0641efc5c7bc19198e5768c87ab6bc6a0ed05712ceed4432e82df
 
 /* for one off testing if address is in the final tree
 
-
-
-const claimingAddress = leafNodes[2];
+const claimingAddress = leafNodes[x];
 const hexProof = merkleTree.getHexProof(claimingAddress);
 console.log("final verification: ", merkleTree.verify(hexProof, claimingAddress, rootHash));
-
 
 */

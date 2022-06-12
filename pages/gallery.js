@@ -10,14 +10,12 @@ import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
 import { Switch } from "@headlessui/react"
-import { heavenly, hellish } from "../public/constants"
 import { linkedNFTContract } from "../public/constants"
 
 
 // APIs
 const API_MAINNET = "https://api.zora.co/graphql"
 const API_RINKEBY = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
-
 
 const client = createClient({
    url: API_MAINNET,
@@ -82,7 +80,7 @@ export default function Gallery() {
       //    }
       // `
 
-      // // mainnet new indexer query
+      // mainnet new indexer query
       ` 
          query {
             tokens(where: {collectionAddresses: "0x7e6663E45Ae5689b313e6498D22B041f4283c88A"}, pagination: {limit: 500}) {
@@ -196,7 +194,7 @@ export default function Gallery() {
    )
 
    return (
-      <div className=" min-h-screen bg-[url('../public/assets/gallery_bg_cropped_smaller.png')] bg-repeat flex flex-row flex-wrap justify-center">
+      <div className=" min-h-screen bg-[url('../public/assets/gallery_bg_cropped_smaller.png')] bg-repeat bg-center flex flex-row flex-wrap justify-center">
 
          <Header />
 
@@ -223,7 +221,24 @@ export default function Gallery() {
                <Switch.Label className="ml-4 font-bold">MY COLLECTION</Switch.Label>
             </div>
          </Switch.Group>
-
+         <div className="w-full flex flex-row justify-center text-[#202716] font-bold">
+            <a 
+               style={{ textDecoration: "none" }}
+               href="https://zora.co/collections/0x7e6663E45Ae5689b313e6498D22B041f4283c88A"
+            >
+               <button className="text-center w-32 p-2 border-4 border-[#202716] bg-[#726e48] hover:bg-[#202716] hover:text-[#726e48] border-solid ">
+                  ZORA
+               </button>   
+            </a>
+            <a 
+               style={{ textDecoration: "none" }}
+               href="https://opensea.io/collection/gardens-of-felt-zine-delights"
+            >
+               <button className="text-center w-32 p-2 border-4 border-l-0 border-[#202716] bg-[#726e48] hover:bg-[#202716] hover:text-[#726e48] border-solid ">
+                  OPENSEA
+               </button>   
+            </a>
+         </div>
 
          <div className="flex flex-row flex-wrap justify-center">
             {
