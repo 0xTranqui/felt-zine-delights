@@ -20,7 +20,7 @@ const API_RINKEBY = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
 
 
 const client = createClient({
-   url: API_MAINNET
+   url: API_MAINNET,
 })
 
 console.log("client", client)
@@ -57,7 +57,6 @@ export default function Gallery() {
    )   
    
    const totalSupply = supplyData ? BigNumber.from(supplyData).toString() : "loading"
-   console.log("totalSuppy", totalSupply)
    const numOfCallsRequired = Math.ceil(totalSupply / 100)
 
    const generateCalls = (numCalls) => {
